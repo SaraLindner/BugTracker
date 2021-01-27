@@ -8,6 +8,8 @@ const babel = require('gulp-babel');
 const watch = require('gulp-watch');
 const browserSync = require('browser-sync').create();
 
+const postcss = require('gulp-postcss');
+
 gulp.task('watch', () => {
     browserSync.init({proxy: 'localhost:8080',});
     gulp.watch(['src/main/resources/**/*.html'], gulp.series('copy-html-and-reload'));
@@ -17,7 +19,7 @@ gulp.task('watch', () => {
 
 gulp.task('copy-html', () => gulp.src(['src/main/resources/**/*.html']).pipe(gulp.dest('target/classes/')));
 
-gulp.task('copy-css', () => gulp.src(['src/main/resources/**/*.css']).pipe(production(uglifycss())).pipe(gulp.dest('target/classes/')));
+gulp.task('copy-css', () => gulp.src(['src/main/resources/**/*.css']).pipe(postcss([require('tailwindcss'), require('autoprefixer'),])).pipe(production(uglifycss())).pipe(gulp.dest('target/classes/')));
 gulp.task('copy-js', () => gulp.src(['src/main/resources/**/*.js']).pipe(babel()).pipe(production(terser())).pipe(gulp.dest('target/classes/')));
 
 gulp.task('copy-html-and-reload', gulp.series('copy-html', reload));

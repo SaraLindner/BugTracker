@@ -1,8 +1,10 @@
-body {
-    background-color: floralwhite;
-}
+@tailwind  base;
 
-h1 {
-    color: black;
-}
+@tailwind  components;
+
+@tailwind  utilities;
+
+
+
+
 
